@@ -1,19 +1,44 @@
 import './index.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 import Home from './components/Home';
-import Topics from './components/Topics';
 import * as MaterialIcons from "react-icons/md"
-import * as HeroIcons from "react-icons/hi2"
-import * as FAIcons from "react-icons/fa"
 
-function App(props) {
+function App() {
   const [sideBar, setSideBar] = useState(true)
-  const [arrowRotate, setArrowRotate] = useState("rotate-0")
+  const [arrowRotate, setArrowRotate] = useState("rotate-180")
+  function DarkIcon() {
+    return <MaterialIcons.MdOutlineDarkMode title='Dark mode' className='dark:text-white text-[25px] text-[#697789] select-none'/>
+  }
+  function LightIcon() {
+    return <MaterialIcons.MdOutlineLightMode title='Light mode' className='text-[25px] dark:text-[#a6a6a7] select-none' />
+  }
+  
+  const [modeSwitcher, setModeSwitcher] = useState(DarkIcon)
+
   return (
-    
     <div className="App">
-        <div className={`${sideBar ? "w-52" : "w-10 justify-center"} fixed h-full bg-slate-100 transition-all duration-300 flex`}>
+        <div className={`${sideBar ? "w-52" : "w-10 justify-center"} fixed h-full bg-slate-100 dark:bg-[#181818] transition-all duration-300 flex flex-wrap`}>
+          {sideBar ? 
+          <div className='absolute border-2 dark:border-[#363636] h-12 w-[92%] items-center bottom-2 bg-[#ffffff] dark:bg-[#202020] rounded-lg left-[4%] justify-center flex'>
+            <MaterialIcons.MdInfoOutline title='About' className='text-[#697789] dark:text-[#a6a6a7] text-[25px] absolute left-2 select-none cursor-pointer'/>
+            <MaterialIcons.MdOutlineAccountCircle title='Account' className='text-[#697789] dark:text-[#a6a6a7] text-[25px] absolute right-2 select-none cursor-pointer'/>
+            <div onClick={() => {if (document.documentElement.classList.contains("dark")){
+                  document.documentElement.classList.remove('dark')
+                  setModeSwitcher(<DarkIcon/>)
+                  console.log("alles gut")
+                } else {
+                  document.documentElement.classList.add('dark')
+                  setModeSwitcher(<LightIcon/>)
+                }}} className="cursor-pointer">
+              {modeSwitcher}
+          </div>
+          </div> : null}                
+                {sideBar ? <div onClick={()=>{console.log("hello hello Im not where I supposed to be")}} className='top-2 bg-gradient-to-b from-[#0256e8] to-blue-500 absolute flex cursor-pointer items-center rounded-l-lg rounded-r-lg border-t border-1.5 border-t-slate-400 h-6 w-28 mx-2 justify-center flex-wrap space-x-1 select-none'>
+                  <MaterialIcons.MdSearch className='text-white' />
+                  <p className='text-white text-[13px] font-thin select-none'>Search</p>
+                  <p className="text-gray-200 text-[11px]">Ctrl+K</p>
+                </div> 
+                : null}
                 <div onClick={
                   () => {
                     if (sideBar === true){
@@ -24,8 +49,8 @@ function App(props) {
                         setArrowRotate("rotate-180")
                     }
                 }
-                } title={sideBar ? null : "Expand"} className={`h-6 ${sideBar ? "w-[4.5rem] right-2" : "w-6 justify-center"} bg-gradient-to-b from-[#104eba] to-blue-500 absolute flex cursor-pointer items-center rounded-l-lg rounded-r-lg top-2 transition-all duration-300 border-t border-1.5 border-t-slate-300`}>
-                  <HeroIcons.HiArrowRight className={`text-[15px] ${arrowRotate} transition-transform duration-300 text-white absolute ${sideBar ? "left-2" : null}`} />
+                } title={sideBar ? null : "Expand"} className={`h-6 ${sideBar ? "w-[4.5rem] right-2" : "w-6 justify-center"} bg-gradient-to-b from-[#024fd5] to-blue-500 absolute flex cursor-pointer items-center rounded-l-lg rounded-r-lg top-2 transition-all duration-300 border-t border-1.5 border-t-slate-400`}>
+                  <MaterialIcons.MdArrowForward className={`text-[15px] ${arrowRotate} transition-transform duration-300 text-white absolute ${sideBar ? "left-2" : null}`} />
                   {sideBar ? <p className='text-white text-[13px] right-2 absolute font-thin select-none'>Close</p> : null}
                 </div>
           </div>
