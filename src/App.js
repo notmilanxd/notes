@@ -1,5 +1,5 @@
 import './index.css';
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Home from './components/Home';
 import * as MaterialIcons from "react-icons/md"
 import AccPopUp from './components/accountPopUpBox';
@@ -20,26 +20,51 @@ function App() {
   
   const clickableContent = document.getElementById("sidebarandcontent")
   
-  window.onload = init;
+  //window.onload = init;
 
+  /*
   function init () {
   clickableContent.addEventListener('mousedown', function ( e ) {
     if (isAccountPopUp === "scale-100") {
         console.log("Alles gut?")
-        setAccountPopUp("scale-0")}
+        setAccountPopUp("scale-0")} else {console.log("nichts ist gut")}
   },true);}
+  }
+  */
+
+  const myRef = useRef(null);
+
+  useEffect(() => {
+    const element = myRef.current;
+    const handleMousedown = (e) => {
+      // do something with e
+        console.log("It detects (not my bitches)")
+        setAccountPopUp("scale-0")
+    };
+    element.addEventListener("mousedown", handleMousedown);
+    return () => {
+      element.removeEventListener("mousedown", handleMousedown);
+    };
+  }, []);
+
   
 
   return (
     <div className="App">
+        <div id='sidebarandcontent' ref={myRef}>
+        {/* SIDEBAR */}
         <div className={`${sideBar ? "w-52" : "w-10 justify-center"} fixed h-full bg-slate-100 dark:bg-[#181818] transition-all duration-300 flex flex-wrap`}>
           {sideBar ? 
           <>
+          {/* FLOATING MENU */}
           <div className='absolute border-2 dark:border-[#363636] h-12 w-[92%] items-center bottom-2 bg-[#ffffff] dark:bg-[#202020] rounded-lg left-[4%] justify-center flex'>
+            {/* ABOUT ICON */}
             <MaterialIcons.MdInfoOutline title='About' className='text-[#697789] dark:text-[#a6a6a7] text-[25px] absolute left-2 select-none cursor-pointer hover:dark:text-white duration-500 hover:text-[#373c46]'/>
+            {/* ACCOUNT ICON */}
             <MaterialIcons.MdOutlineAccountCircle onClick={() =>{
               setAccountPopUp("scale-100")
-            }} title='Account' className='text-[#697789] dark:text-[#a6a6a7] text-[25px] absolute right-2 select-none cursor-pointer hover:dark:text-white duration-500 hover:text-[#373c46]'/>
+            }} title='Account' className='text-[#697789] dark:text-[#a6a6a7] text-[25px] absolute right-2 select-none cursor-pointer hover:dark:text-white duration-500 hover:text-[#8294ba]'/>
+            {/* LIGHT/DARK MODE SWITCHER */}
             <div onClick={() => {if (document.documentElement.classList.contains("dark")){
                   document.documentElement.classList.remove('dark')
                   setModeSwitcher(<DarkIcon/>)
@@ -78,11 +103,13 @@ function App() {
         <div className={`${sideBar ? "left-52" : "left-10"} w-full fixed transition-all duration-300`}>
           <Home/>
         </div>
+        </div>
         {sideBar ? <div id='accButton' className={`bottom-52 fixed left-24 ${isAccountPopUp}`}>
             <AccPopUp name="Account name" />   
         </div> : null}
     </div>
   );
-}
+    }
+
 
 export default App;
