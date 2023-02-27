@@ -1,5 +1,5 @@
 import './index.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Home from './components/Home';
 import * as MaterialIcons from "react-icons/md"
 import AccPopUp from './components/accountPopUpBox';
@@ -17,18 +17,17 @@ function App() {
   const [modeSwitcher, setModeSwitcher] = useState(DarkIcon)
   const [isAccountPopUp, setAccountPopUp] = useState("scale-0")
 
+  
+  const clickableContent = document.getElementById("sidebarandcontent")
+  
+  window.onload = init;
 
-
-
-
-  window.addEventListener('mousedown', function ( e ) {
+  function init () {
+  clickableContent.addEventListener('mousedown', function ( e ) {
     if (isAccountPopUp === "scale-100") {
-      if (e.target.id === "accButton"){
-        e.stopImmediatePropagation();
-        e.stopPropagation();
-      }
+        console.log("Alles gut?")
         setAccountPopUp("scale-0")}
-  },true);
+  },true);}
   
 
   return (
