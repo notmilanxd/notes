@@ -8,11 +8,11 @@ function AccPopUp(props) {
                 <p className="dark:text-white">{props.name}</p>
             </div>
             <div className="top-[4.5rem] space-y-3 w-[90%] absolute cursor-pointer">
-                <div className="flex-wrap space-x-1 flex">
+                <div className="flex-wrap space-x-1 flex select-none">
                     <MaterialIcons.MdOutlineVpnKey className="text-[#697789] dark:text-[#a6a6a7]"/>
                     <p className="text-[#697789] dark:text-[#a6a6a7] text-sm">Reset password</p>
                 </div>
-                <div className="flex-wrap space-x-1 flex cursor-pointer">
+                <div className="flex-wrap space-x-1 flex cursor-pointer select-none">
                     <MaterialIcons.MdLogout className="text-[#697789] dark:text-[#a6a6a7]"/>
                     <p className="text-[#697789] dark:text-[#a6a6a7] text-sm">Log out</p>
                 </div>

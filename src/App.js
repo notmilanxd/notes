@@ -15,22 +15,7 @@ function App() {
   }
   
   const [modeSwitcher, setModeSwitcher] = useState(DarkIcon)
-  const [isAccountPopUp, setAccountPopUp] = useState("scale-0")
-
-  
-  const clickableContent = document.getElementById("sidebarandcontent")
-  
-  //window.onload = init;
-
-  /*
-  function init () {
-  clickableContent.addEventListener('mousedown', function ( e ) {
-    if (isAccountPopUp === "scale-100") {
-        console.log("Alles gut?")
-        setAccountPopUp("scale-0")} else {console.log("nichts ist gut")}
-  },true);}
-  }
-  */
+  const [isAccountPopUp, setAccountPopUp] = useState(false)
 
   const myRef = useRef(null);
 
@@ -38,20 +23,21 @@ function App() {
     const element = myRef.current;
     const handleMousedown = (e) => {
       // do something with e
-        console.log("It detects (not my bitches)")
-        setAccountPopUp("scale-0")
+      if (isAccountPopUp === true) {
+        setAccountPopUp(false)
+      }
     };
     element.addEventListener("mousedown", handleMousedown);
     return () => {
       element.removeEventListener("mousedown", handleMousedown);
     };
-  }, []);
+  }, [isAccountPopUp]);
 
   
 
   return (
     <div className="App">
-        <div id='sidebarandcontent' ref={myRef}>
+        <div ref={myRef}>
         {/* SIDEBAR */}
         <div className={`${sideBar ? "w-52" : "w-10 justify-center"} fixed h-full bg-slate-100 dark:bg-[#181818] transition-all duration-300 flex flex-wrap`}>
           {sideBar ? 
@@ -62,8 +48,8 @@ function App() {
             <MaterialIcons.MdInfoOutline title='About' className='text-[#697789] dark:text-[#a6a6a7] text-[25px] absolute left-2 select-none cursor-pointer hover:dark:text-white duration-500 hover:text-[#373c46]'/>
             {/* ACCOUNT ICON */}
             <MaterialIcons.MdOutlineAccountCircle onClick={() =>{
-              setAccountPopUp("scale-100")
-            }} title='Account' className='text-[#697789] dark:text-[#a6a6a7] text-[25px] absolute right-2 select-none cursor-pointer hover:dark:text-white duration-500 hover:text-[#8294ba]'/>
+              setAccountPopUp(true)}
+            } title='Account' className='text-[#697789] dark:text-[#a6a6a7] text-[25px] absolute right-2 select-none cursor-pointer hover:dark:text-white duration-500 hover:text-[#373c46]'/>
             {/* LIGHT/DARK MODE SWITCHER */}
             <div onClick={() => {if (document.documentElement.classList.contains("dark")){
                   document.documentElement.classList.remove('dark')
@@ -104,7 +90,7 @@ function App() {
           <Home/>
         </div>
         </div>
-        {sideBar ? <div id='accButton' className={`bottom-52 fixed left-24 ${isAccountPopUp}`}>
+        {sideBar && isAccountPopUp ? <div id='accButton' className={`bottom-52 fixed left-24`}>
             <AccPopUp name="Account name" />   
         </div> : null}
     </div>
