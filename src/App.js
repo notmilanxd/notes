@@ -3,7 +3,8 @@ import { useState, useRef, useEffect } from 'react';
 import Home from './components/Home';
 import * as MaterialIcons from "react-icons/md"
 import AccPopUp from './components/accountPopUpBox';
-import { SearchShortcut, SearchIconFunction } from './components/searchFunction';
+import { SearchShortcut } from './components/searchFunction';
+import { SearchButtonLong, SearchButtonShort, TestButton } from './components/buttons';
 
 
 function App() {
@@ -67,11 +68,7 @@ function App() {
           </>
           
           : null}                
-                {sideBar ? <div onClick={() => SearchIconFunction()} className='top-2 bg-gradient-to-b from-[#0256e8] to-blue-500 absolute flex cursor-pointer items-center rounded-l-lg rounded-r-lg border-t border-1.5 border-t-slate-400 h-6 w-28 mx-2 justify-center flex-wrap space-x-1 select-none'>
-                  <MaterialIcons.MdSearch className='text-white' />
-                  <p className='text-white text-[13px] font-thin select-none'>Search</p>
-                  <p className="text-gray-200 text-[11px]">Ctrl+K</p>
-                </div> 
+                {sideBar ? <SearchButtonLong />
                 : null}
                 <div onClick={
                   () => {
@@ -87,6 +84,13 @@ function App() {
                   <MaterialIcons.MdArrowForward className={`text-[15px] ${arrowRotate} transition-transform duration-300 text-white absolute ${sideBar ? "left-2" : null}`} />
                   {sideBar ? <p className='text-white text-[13px] right-2 absolute font-thin select-none'>Close</p> : null}
                 </div>
+
+                {sideBar ? null : 
+                <div className="top-10 absolute space-y-2" >
+                  <SearchButtonShort />
+                  
+                </div>
+                }
           </div>
         <div className={`${sideBar ? "left-52" : "left-10"} w-full fixed transition-all duration-300`}>
           <Home/>
