@@ -3,6 +3,8 @@ import { useState, useRef, useEffect } from 'react';
 import Home from './components/Home';
 import * as MaterialIcons from "react-icons/md"
 import AccPopUp from './components/accountPopUpBox';
+import { SearchShortcut, SearchIconFunction } from './components/searchFunction';
+
 
 function App() {
   const [sideBar, setSideBar] = useState(true)
@@ -33,7 +35,7 @@ function App() {
     };
   }, [isAccountPopUp]);
 
-  
+  SearchShortcut()
 
   return (
     <div className="App">
@@ -65,7 +67,7 @@ function App() {
           </>
           
           : null}                
-                {sideBar ? <div onClick={()=>{console.log("hello hello Im not where I supposed to be")}} className='top-2 bg-gradient-to-b from-[#0256e8] to-blue-500 absolute flex cursor-pointer items-center rounded-l-lg rounded-r-lg border-t border-1.5 border-t-slate-400 h-6 w-28 mx-2 justify-center flex-wrap space-x-1 select-none'>
+                {sideBar ? <div onClick={() => SearchIconFunction()} className='top-2 bg-gradient-to-b from-[#0256e8] to-blue-500 absolute flex cursor-pointer items-center rounded-l-lg rounded-r-lg border-t border-1.5 border-t-slate-400 h-6 w-28 mx-2 justify-center flex-wrap space-x-1 select-none'>
                   <MaterialIcons.MdSearch className='text-white' />
                   <p className='text-white text-[13px] font-thin select-none'>Search</p>
                   <p className="text-gray-200 text-[11px]">Ctrl+K</p>
