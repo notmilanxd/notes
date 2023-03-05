@@ -1,8 +1,10 @@
 import * as MaterialIcons from "react-icons/md"
+import { motion } from "framer-motion";
 
 function AccPopUp(props) {
     return(
-        <div className="w-52 h-36 bg-white border-2 rounded-lg dark:border-[#363636] dark:bg-[#202020] flex absolute justify-center">
+        <motion.div
+         className="w-52 h-36 bg-white border-2 rounded-lg dark:border-[#363636] dark:bg-[#202020] flex absolute justify-center">
             <div className="h-14 border-b-2 dark:border-[#363636] w-[95%] flex flex-wrap absolute space-x-2 items-center">
                 <MaterialIcons.MdAccountCircle className="text-[50px] text-gray-500" />
                 <p className="dark:text-white">{props.name}</p>
@@ -17,7 +19,7 @@ function AccPopUp(props) {
                     <p className="text-[#697789] dark:text-[#a6a6a7] text-sm">Log out</p>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

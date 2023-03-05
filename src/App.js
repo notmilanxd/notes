@@ -5,6 +5,7 @@ import * as MaterialIcons from "react-icons/md"
 import AccPopUp from './components/accountPopUpBox';
 import { SearchShortcut } from './components/searchFunction';
 import { SearchButtonLong, SearchButtonShort, TestButton } from './components/buttons';
+import { CreateNoteButton } from './components/createNote';
 
 
 function App() {
@@ -46,6 +47,14 @@ function App() {
           {sideBar ? 
           <>
           {/* FLOATING MENU */}
+          
+          <div className='absolute top-[6.5rem] flex flex-wrap space-x-2 mx-2'>
+            <p className='bg-red-400'>kac kac kukac</p>
+            <p className='bg-red-400'>uwu</p>
+            <p className='bg-red-400'>ddgh</p>
+          </div>
+                 
+          
           <div className='absolute border-2 dark:border-[#363636] h-12 w-[92%] items-center bottom-2 bg-[#ffffff] dark:bg-[#202020] rounded-lg left-[4%] justify-center flex'>
             {/* ABOUT ICON */}
             <MaterialIcons.MdInfoOutline title='About' className='text-[#697789] dark:text-[#a6a6a7] text-[25px] absolute left-2 select-none cursor-pointer hover:dark:text-white duration-500 hover:text-[#373c46]'/>
@@ -68,30 +77,35 @@ function App() {
           </>
           
           : null}                
-                {sideBar ? <SearchButtonLong />
-                : null}
-                <div onClick={
-                  () => {
-                    if (sideBar === true){
+                <div className={`${sideBar ? "w-full h-24 border-b-2 dark:border-[#363636]" : null}`}>
+                  {sideBar ? <SearchButtonLong />
+                  : null}
+                  <div onClick={
+                    () => {
+                      if (sideBar === true){
                         setSideBar(false);
                         setArrowRotate("rotate-0")
-                    } else {
+                      } else {
                         setSideBar(true);
                         setArrowRotate("rotate-180")
-                    }
-                }
-                } title={sideBar ? null : "Expand"} className={`h-6 ${sideBar ? "w-[4.5rem] right-2" : "w-6 justify-center"} bg-gradient-to-b from-[#024fd5] to-blue-500 absolute flex cursor-pointer items-center rounded-l-lg rounded-r-lg top-2 transition-all duration-300 border-t border-1.5 border-t-slate-400`}>
-                  <MaterialIcons.MdArrowForward className={`text-[15px] ${arrowRotate} transition-transform duration-300 text-white absolute ${sideBar ? "left-2" : null}`} />
-                  {sideBar ? <p className='text-white text-[13px] right-2 absolute font-thin select-none'>Close</p> : null}
+                      }
+                      }
+                    } title={sideBar ? null : "Expand"} className={`h-6 ${sideBar ? "w-[4.5rem] right-2 absolute" : "w-6 justify-center relative"} bg-gradient-to-b from-[#024fd5] to-blue-500 flex cursor-pointer items-center rounded-l-lg rounded-r-lg top-2 transition-all duration-300 border-t border-1.5 border-t-slate-400`}>
+                    <MaterialIcons.MdArrowForward className={`text-[15px] ${arrowRotate} transition-transform duration-300 text-white absolute ${sideBar ? "left-2" : null}`} />
+                    {sideBar ? <p className='text-white text-[13px] right-2 absolute font-thin select-none'>Close</p> : null}
+                  </div>
+                  {sideBar ? 
+                  <div className="left-2 absolute">
+                    <CreateNoteButton />
+                  </div> : null}
                 </div>
-
+            
                 {sideBar ? null : 
                 <div className="top-10 absolute space-y-2" >
                   <SearchButtonShort />
-                  
                 </div>
                 }
-          </div>
+                </div>
         <div className={`${sideBar ? "left-52" : "left-10"} w-full fixed transition-all duration-300`}>
           <Home/>
         </div>
