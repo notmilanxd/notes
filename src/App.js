@@ -46,8 +46,8 @@ function App() {
             content: "thsi is a content"                        
         },
         {
-            title: "a",
-            content: "o"
+            title: "➡️My favorite emojis",
+            content: "💀🤯📈🐥"
         }
 
 
@@ -56,7 +56,7 @@ function App() {
 
   function CreateNewNote() {
     addNote(
-      [{title: "this is a third title hasiojsa", content: "this is a third content gdszuudfhidshđmjruiofdjoifdjdfiop"}, ...noteList]
+      [{title: "My favorite word 😩", content: "Okay so my favorite word is: UwU... Why? I want to eplain this in this video"}, ...noteList]
       
     )
   }
@@ -81,7 +81,7 @@ function App() {
           <>
           {/* FLOATING MENU */}
           
-          <div className='absolute top-[6.5rem] overflow-y-auto w-full h-[calc(100%-10.5rem)] space-y-2 justify-center scrollbar-thumb-slate-200 hover:scrollbar-thumb-slate-300 dark:scrollbar-thumb-[#363636] hover:dark:scrollbar-thumb-[#454545] scrollbar-thin'>
+          <div className='absolute top-[6.5rem] overflow-y-auto overflow-x-hidden w-full h-[calc(100%-10.5rem)] space-y-2 justify-center scrollbar-thumb-slate-200 hover:scrollbar-thumb-slate-300 dark:scrollbar-thumb-[#363636] hover:dark:scrollbar-thumb-[#454545] scrollbar-thin scrollbar-thumb-rounded-lg'>
             {noteList.map((notes) => {
               return(
               <NoteElement
