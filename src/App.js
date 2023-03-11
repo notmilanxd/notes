@@ -5,7 +5,7 @@ import * as MaterialIcons from "react-icons/md"
 import AccPopUp from './components/accountPopUpBox';
 import { SearchShortcut } from './components/searchFunction';
 import { SearchButtonLong, SearchButtonShort, TestButton } from './components/buttons';
-import { CreateNoteButton } from './components/createNote';
+import { NoteElement } from './components/createNote';
 
 
 function App() {
@@ -39,6 +39,39 @@ function App() {
 
   SearchShortcut()
 
+  const [noteList, addNote] = useState(
+    [
+        {
+            title: "dis is a title",
+            content: "thsi is a content"                        
+        },
+        {
+            title: "a",
+            content: "o"
+        }
+
+
+    ]
+  )
+
+  function CreateNewNote() {
+    addNote(
+      [{title: "this is a third title hasiojsa", content: "this is a third content gdszuudfhidshđmjruiofdjoifdjdfiop"}, ...noteList]
+      
+    )
+  }
+
+  function CreateNoteButton() {
+    return(
+        <div onClick={
+            () => CreateNewNote()
+        } className="justify-center items-center flex w-48 absolute h-9 top-10 rounded-lg space-x-1 bg-gradient-to-b from-[#0256e8] to-blue-400 border-t border-t-slate-400 shadow-md dark:shadow-[#090909] text-lg select-none cursor-pointer">
+            <MaterialIcons.MdOutlineAddCircle className="text-[27px] text-white"/>
+            <p className="text-white">Create new note</p>
+        </div>
+    )
+}
+
   return (
     <div className="App">
         <div ref={myRef}>
@@ -48,10 +81,14 @@ function App() {
           <>
           {/* FLOATING MENU */}
           
-          <div className='absolute top-[6.5rem] flex flex-wrap space-x-2 mx-2'>
-            <p className='bg-red-400'>kac kac kukac</p>
-            <p className='bg-red-400'>uwu</p>
-            <p className='bg-red-400'>ddgh</p>
+          <div className='absolute top-[6.5rem] overflow-y-auto w-full h-[calc(100%-10.5rem)] space-y-2 justify-center scrollbar-thumb-slate-200 hover:scrollbar-thumb-slate-300 dark:scrollbar-thumb-[#363636] hover:dark:scrollbar-thumb-[#454545] scrollbar-thin'>
+            {noteList.map((notes) => {
+              return(
+              <NoteElement
+                title={notes.title}
+                content={notes.content}
+              />)
+            })}
           </div>
                  
           
