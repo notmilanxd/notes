@@ -4,7 +4,7 @@ import Home from './components/Home';
 import * as MaterialIcons from "react-icons/md"
 import AccPopUp from './components/accountPopUpBox';
 import { SearchShortcut } from './components/searchFunction';
-import { SearchButtonLong, SearchButtonShort, TestButton } from './components/buttons';
+import { SearchButtonLong, SearchButtonShort } from './components/buttons';
 import { NoteElement } from './components/createNote';
 
 
@@ -20,6 +20,7 @@ function App() {
   
   const [modeSwitcher, setModeSwitcher] = useState(DarkIcon)
   const [isAccountPopUp, setAccountPopUp] = useState(false)
+  const [isSidebarHover, setSidebarHover] = useState(false)
 
   const myRef = useRef(null);
 
@@ -43,11 +44,15 @@ function App() {
     [
         {
             title: "dis is a title",
-            content: "thsi is a content"                        
+            content: "thsi is a content",
+            date: "12/03/2023",
+            attachments: 1                     
         },
         {
             title: "➡️My favorite emojis",
-            content: "💀🤯📈🐥"
+            content: "💀🤯📈🐥",
+            date: "08/08/2005",
+            attachments: 69
         }
 
 
@@ -56,7 +61,7 @@ function App() {
 
   function CreateNewNote() {
     addNote(
-      [{title: "My favorite word 😩", content: "Okay so my favorite word is: UwU... Why? I want to eplain this in this video"}, ...noteList]
+      [{title: "My favorite word 😩", content: "Okay so my favorite word is: UwU... Why? I want to eplain this in this video", date: "26/09/2013", attachments: 2}, ...noteList]
       
     )
   }
@@ -76,17 +81,19 @@ function App() {
     <div className="App">
         <div ref={myRef}>
         {/* SIDEBAR */}
-        <div className={`${sideBar ? "w-52" : "w-10 justify-center"} fixed h-full bg-slate-100 dark:bg-[#181818] transition-all duration-300 flex flex-wrap`}>
+        <div className={`${sideBar ? "w-52" : "w-10 justify-center"} fixed h-full bg-[#f2f2f6] dark:bg-[#181818] transition-all duration-300 flex flex-wrap`}>
           {sideBar ? 
           <>
           {/* FLOATING MENU */}
           
-          <div className='absolute top-[6.5rem] overflow-y-auto overflow-x-hidden w-full h-[calc(100%-10.5rem)] space-y-2 justify-center scrollbar-thumb-slate-200 hover:scrollbar-thumb-slate-300 dark:scrollbar-thumb-[#363636] hover:dark:scrollbar-thumb-[#454545] scrollbar-thin scrollbar-thumb-rounded-lg'>
+          <div onMouseOver={()=>{setSidebarHover(true)}} onMouseOut={()=>{setSidebarHover(false)}} className={`${isSidebarHover ? "scrollbar-thumb-slate-200 hover:scrollbar-thumb-slate-300 hover:dark:scrollbar-thumb-[#5b5b5b] dark:scrollbar-thumb-[#454545]" : "scrollbar-thumb-transparent"} absolute top-[6.5rem] overflow-y-auto overflow-x-hidden w-full h-[calc(100%-10.5rem)] space-y-2 justify-center scrollbar-thin scrollbar-thumb-rounded-lg`}>
             {noteList.map((notes) => {
               return(
               <NoteElement
                 title={notes.title}
                 content={notes.content}
+                createDate={notes.date}
+                attachments={notes.attachments}
               />)
             })}
           </div>
@@ -114,7 +121,7 @@ function App() {
           </>
           
           : null}                
-                <div className={`${sideBar ? "w-full h-24 border-b-2 dark:border-[#363636]" : null}`}>
+                <div className={`${sideBar ? "w-full h-24" : null}`}>
                   {sideBar ? <SearchButtonLong />
                   : null}
                   <div onClick={
